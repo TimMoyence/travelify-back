@@ -1,0 +1,33 @@
+# OS X
+**/.DS_Store*
+**/Icon?
+**/._*
+# Windows
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+# Linux
+**/.directory
+**/*~
+# npm
+node_modules
+package-lock.json
+*.gz
+#log
+**/*.log
+**/*.log.*
+#vscode
+.vs_code/
+#config
+.env
+sqitch.conf
+#test
+coverage/
+uploads/*
+!uploads/default.png
+!uploads/EnzoCaldora.jpg
+!uploads/GeoffreyFardeau.jpg
+!uploads/JeremyBreton.jpg
+!uploads/RenaudBerni.jpg
+!uploads/TimMoyence.jpg
+.vscode/
