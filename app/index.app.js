@@ -17,18 +17,20 @@ passportConfig(passport);
 
 const app = express();
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true },
-}));
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  }),
+);
 
 userDocImplementation(app);
 app.use('/static', express.static('uploads'));
 
 const corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: process.env.CORSORIGIN || 'http://localhost:4200',
   methods: ['GET', 'POST'],
   credentials: true,
 };
