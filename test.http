@@ -12,7 +12,7 @@ GET http://localhost:3000/api/users/
 GET http://localhost:3000/api/user/1
 
 ### ? Update user
-PATCH http://localhost:3000/api/user/19
+PATCH https://travelify.fr//api/user/19
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
   "newPassword": "Password123!"
 }
 ### ? Post User
-POST http://localhost:3000/api/register
+POST https://travelify.fr/api/register
 Content-Type: application/json
 
 {
@@ -87,12 +87,19 @@ Content-Type: application/json
 ############ ! ############################# 
 
 ### ? Post user invitation
-POST http://localhost:3000/api/invitelink/
+POST http://localhost:3000/api/contact
 Content-Type: application/json
 
 {
-  "email": "fardeau.geoffrey@gmail.com",
-  "eventId": "2"
+  "email": "tim.moyence@outlook.com"
+}
+
+### ? Post user invitation
+POST https://travelify.fr/api/contact
+Content-Type: application/json
+
+{
+  "email": "tim.moyence@gmail.com"
 }
 
 ### ? Post event passs
