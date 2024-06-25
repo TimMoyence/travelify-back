@@ -12,12 +12,12 @@ const debug = Debug('WeekAway:router:event');
 
 const eventRouter = Router();
 
-eventRouter.route('/api/event')
+eventRouter
+  .route('/api/event')
   .post(
     upload.single('event'),
     validation(schemaPost.eventSchema, 'body'),
     controllerWrapper(eventController.createEvent),
-
   )
   /**
    * POST /api/event
@@ -27,16 +27,15 @@ eventRouter.route('/api/event')
    * - object with different personnailzed sentence parts
 
    */
-  .get(
-    controllerWrapper(eventController.findAllEvents),
-  );
+  .get(controllerWrapper(eventController.findAllEvents));
 /**
-   * GET /api/event/
-   * @summary Get all events
-   * @tags Event
+ * GET /api/event/
+ * @summary Get all events
+ * @tags Event
  */
 
-eventRouter.route('/api/event/:id')
+eventRouter
+  .route('/api/event/:id')
   .get(
     validation(schemaGet, 'query'),
     controllerWrapper(eventController.findEventById),
@@ -45,12 +44,12 @@ eventRouter.route('/api/event/:id')
    * GET /api/event/{id}
    * @summary Get an evet by id
    * @tags Event
- */
+   */
   .patch(
     validation(schemaPatch.eventSchema, 'body'),
     controllerWrapper(eventController.updateEvent),
   )
-/**
+  /**
    * PATCH /api/event/:id
    * @summary Modify event infos
    * @tags Event
@@ -64,9 +63,9 @@ eventRouter.route('/api/event/:id')
   );
 
 /**
-   * DELETE /api/event/:id
-   * @summary Delete an event by id
-   * @tags Event
+ * DELETE /api/event/:id
+ * @summary Delete an event by id
+ * @tags Event
  */
 
 export default eventRouter;
