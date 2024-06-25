@@ -1,5 +1,5 @@
-import pg from 'pg';
 import Debug from 'debug';
+import pg from 'pg';
 
 const debug = Debug('louison:database');
 // const { Pool } = pg;
