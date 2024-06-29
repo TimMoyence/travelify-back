@@ -1,5 +1,5 @@
 {
-  "name": "Travelify_API",
+  "name": "Travelify-API",
   "version": "1.0.0",
   "description": "WeekAway API data provider",
   "type": "module",
@@ -11,7 +11,7 @@
     "Deploy": "psql -d weekaway -U Tim -f ./data/deploy/createTable.sql",
     "Revert": "psql -d weekaway -U Tim -f  ./data/revert/createTable.sql",
     "Verify": "psql -d weekaway -U Tim -f  ./data/verify/createTable.sql",
-    "resetDB": "psql -d weekaway -U Tim -f ./data/revert/createTable.sql; psql -d weekaway -U Tim -f ./data/deploy/createTable.sql;psql -d weekaway -U Tim -f ./data/deploy/CreateFonction.sql; psql -d weekaway -U Tim -f ./data/deploy/set_timestamp.sql; psql -d weekaway -U Tim -f ./data/verify/createTable.sql; psql -d weekaway -U Tim -f data/seeding.sql;"
+    "resetDB": "psql -d weekaway -U Tim -f ./data/revert/createTable.sql; psql -d weekaway -U Tim -f ./data/deploy/createTable.sql;psql -d weekaway -U Tim -f ./data/deploy/CreateFonction.sql; psql -d weekaway -U Tim -f ./data/deploy/set_timestamp.sql; psql -d weekaway -U Tim -f ./data/verify/createTable.sql; psql -d weekaway -U Tim -f data/deploy/seeding.sql;"
   },
   "keywords": [],
   "author": "",
