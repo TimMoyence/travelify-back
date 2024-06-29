@@ -34,8 +34,12 @@ export default {
   },
 
   async addUserChoice(req, res) {
+    // the data need to composed by userId, eventId, startDate, endDate,
+
     const data = req.body;
+    console.log(data);
     const userChoiceData = await datamapper.getUserChoiceByUserId(data.userId);
+
     const hasVoted = userChoiceVerify.removeDuplicateDatesForEvent(
       data,
       userChoiceData,

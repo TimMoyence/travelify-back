@@ -14,30 +14,35 @@ export default class UserChoiceDataMapper extends coreDataMapper {
 
   // Ordering by timestamptz
   async getUserChoiceByUserId(id) {
-    const result = await client.query(`SELECT * FROM "${this.constructor.tableName}" WHERE user_id = $1 ORDER BY start_date_choice ASC`, [id]);
+    const result = await client.query(
+      `SELECT * FROM "${this.constructor.tableName}" WHERE user_id = $1 ORDER BY start_date_choice ASC`,
+      [id],
+    );
     return result.rows;
   }
 
   async updateUserChoice(id, data) {
     const result = await client.query(
       `UPDATE "${this.constructor.tableName}" SET start_date_choice = $1, end_date_choice = $2 WHERE user_id = $3 RETURNING *`,
-      [
-        data.startDate,
-        data.endDate,
-        id,
-      ],
+      [data.startDate, data.endDate, id],
     );
     return result.rows[0];
   }
 
   // Ordering by timestamptz
   async getUserChoiceByEventId(id) {
-    const result = await client.query(`SELECT * FROM "${this.constructor.tableName}" WHERE event_id = $1 ORDER BY start_date_choice ASC`, [id]);
+    const result = await client.query(
+      `SELECT * FROM "${this.constructor.tableName}" WHERE event_id = $1 ORDER BY start_date_choice ASC`,
+      [id],
+    );
     return result.rows;
   }
 
   async deleteChoiceByUserId(id) {
-    const result = await client.query(`DELETE FROM "${this.constructor.tableName}" WHERE user_id = $1`, [id]);
+    const result = await client.query(
+      `DELETE FROM "${this.constructor.tableName}" WHERE user_id = $1`,
+      [id],
+    );
     return result.rows[0];
   }
 
@@ -46,8 +51,8 @@ export default class UserChoiceDataMapper extends coreDataMapper {
     const values = [
       data.startDate,
       data.endDate,
-      data.eventId,
-      data.userId,
+      parseInt(data.eventId),
+      parseInt(data.userId),
     ];
     const result = await client.query(query, values);
     return result.rows[0];
