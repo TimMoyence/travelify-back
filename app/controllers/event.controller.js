@@ -40,18 +40,24 @@ export default {
     eventDetail.password = eventDetails.password;
     eventDetail.dates_of_event = eventDetails.dates_of_event;
 
+    let mergeEventDetails = {};
+
     if (!eventDetails.users.includes(null)) {
       const eventDatereport = await dateOneEvent.choiceDateOneEvent(
         eventDetails,
       );
 
-      const mergedToRenderEventDetails = {
+      mergeEventDetails = {
         ...eventDetail,
         ...eventDatereport,
       };
-      return res.json({ mergedToRenderEventDetails });
+
+      return res.json({ mergeEventDetails });
     }
-    return res.json({ eventDetail });
+
+    mergeEventDetails = { ...eventDetail };
+
+    return res.json({ mergeEventDetails });
   },
 
   async createEvent(req, res) {
@@ -99,6 +105,7 @@ export default {
       }
     }
     await userHasEventDataMapper.addUserToEvent(dataEvent.owner_id, event.id);
+
     res.json(event);
   },
 
