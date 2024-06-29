@@ -1,7 +1,7 @@
-import nodemailer from 'nodemailer';
-import handlebars from 'handlebars';
-import { promisify } from 'util';
 import fs from 'fs';
+import handlebars from 'handlebars';
+import nodemailer from 'nodemailer';
+import { promisify } from 'util';
 
 export default {
   async sendMail(ownerInfos, event, email) {
@@ -14,7 +14,10 @@ export default {
       },
     });
 
-    const html = await readFile('./app/services/mailer/inviteLink.html', 'utf8');
+    const html = await readFile(
+      './app/services/mailer/inviteLink.html',
+      'utf8',
+    );
     const template = handlebars.compile(html);
     const data = {
       firstname: ownerInfos.firstname,
@@ -25,9 +28,9 @@ export default {
     const htmlToSend = template(data);
 
     const mailOptions = {
-      from: 'fardeau.geoffrey@gmail.com',
+      from: process.env.MAIL,
       to: email,
-      subject: `WeekAway : ${data.firstname} vous à invité(e) à participer à son évènement`,
+      subject: `Travelify : ${data.firstname} vous à invité(e) à participer à son évènement`,
       html: htmlToSend,
     };
 
@@ -39,5 +42,4 @@ export default {
       }
     });
   },
-
 };
