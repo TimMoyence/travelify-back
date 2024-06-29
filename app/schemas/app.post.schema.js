@@ -34,7 +34,7 @@ const loginSchema = Joi.object({
 const userChoiceSchema = Joi.object({
   startDate: Joi.required(),
   endDate: Joi.required(),
-  eventId: Joi.number().required(),
+  eventId: Joi.string().required(),
   userId: Joi.number().required(),
 });
 
