@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 import { promisify } from 'util';
 
 export default {
-  async sendMail(userData) {
+  async sendMail(userContactData) {
     const readFile = promisify(fs.readFile);
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -14,19 +14,25 @@ export default {
       },
     });
 
-    const html = await readFile('./app/services/mailer/register.html', 'utf8');
+    const html = await readFile(
+      './app/services/services.mailer/contact.html',
+      'utf8',
+    );
     const template = handlebars.compile(html);
     const data = {
-      firstname: userData.firstname,
-      lastname: userData.lastname,
-      email: userData.email,
+      firstname: userContactData.firstname,
+      lastname: userContactData.lastname,
+      email: userContactData.email,
+      phone: userContactData.phone,
+      message: userContactData.message,
+      agree: userContactData.agree,
     };
     const htmlToSend = template(data);
 
     const mailOptions = {
-      from: process.env.MAIL,
-      to: data.email,
-      subject: `Bienvenue ${data.firstname} ${data.lastname}`,
+      from: 'contact.travelify@gmail.com',
+      to: 'contact.travelify@gmail.com',
+      subject: `Nouvelle demande de contact de ${data.firstname} ${data.lastname}`,
       html: htmlToSend,
     };
 
