@@ -1,9 +1,9 @@
 import Debug from 'debug';
 import { Router } from 'express';
 import authController from '../controllers/auth.controller.js';
+import controllerWrapper from '../middlewares/controller.wrapper.js';
 import validation from '../middlewares/validation.middleware.js';
 import * as schemaPost from '../schemas/app.post.schema.js';
-import controllerWrapper from '../middlewares/controller.wrapper.js';
 
 const debug = Debug('WeekAway:router:auth');
 /**
@@ -44,7 +44,15 @@ authRouter.post(
 
    */
 
-authRouter.route('/api/logout');
+authRouter.post('/api/logout', controllerWrapper(authController.logout));
+// authRouter.post('/api/logout', function (req, res, next) {
+//   req.logout(function (err) {
+//     if (err) {
+//       return next(err);
+//     }
+//     res.send('logout');
+//   });
+// });
 /**
  * GET /api/logout
  * @summary disconnect an user
@@ -54,6 +62,6 @@ authRouter.route('/api/logout');
 authRouter.post(
   '/api/contact',
   validation(schemaPost.contactSchema, 'body'),
-  controllerWrapper(authController.contact),
+  controllerWrapper(authController.sendMail),
 );
 export default authRouter;
