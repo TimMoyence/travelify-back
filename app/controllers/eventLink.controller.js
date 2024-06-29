@@ -26,6 +26,7 @@ const eventDatamapper = new EventDatamapper();
 export default {
   async createInviteLink(req, res) {
     const { email, eventId } = req.body;
+
     const userExist = await userDataMapper.findByEmail(email);
     const event = await eventDatamapper.findEventWithOwnerInfos(eventId);
     if (!event) {
@@ -35,33 +36,42 @@ export default {
     if (!userExist) {
       mailService.sendMail(ownerInfos, event, email);
       return res.json({
-        message: 'User non existant, mail de registration envoyé !',
+        message:
+          'Utilisateur non inscrit, l’invitation a été envoyée avec une demande de création de compte.',
       });
     }
     mailServiceRegistered.sendMail(userExist, ownerInfos, event, email);
-    return res.json({ message: 'User existant Mail envoyé !' });
+    return res.json({
+      message:
+        "Utilisateur existant, l’invitation à l'événement a été envoyée.",
+    });
   },
 
   async joinEvent(req, res) {
-    const { password, id } = req.body;
-    const user = await userDataMapper.findById(id);
+    const { password, user } = req.body;
+    const userInformation = await userDataMapper.findById(user);
+    if (!userInformation) {
+      return res.json({ message: 'Utilisateur Inconnu' });
+    }
     const event = await eventDatamapper.findEventByPassword(password);
-    const userIsInEvent = await userHasEventDataMapper.verifyUserInEvent(
-      user?.id,
-      event?.id,
-    );
-
-    if (!event || !user) {
+    if (!event) {
       return res.json({
-        message:
-          'Mot de passe incorrect ou evènement non existant ou utilisateur non identifié / inexistant',
+        message: 'Mot de passe incorrect ou événement inexistant',
       });
     }
+    const userIsInEvent = await userHasEventDataMapper.verifyUserInEvent(
+      userInformation.id,
+      event.id,
+    );
     if (!userIsInEvent) {
-      await userHasEventDataMapper.addUserToEvent(user.id, event.id);
+      const addtoevent = await userHasEventDataMapper.addUserToEvent(
+        userInformation.id,
+        event.id,
+      );
+
       return res.json({
-        eventId: event.id,
-        message: `${user.firstname} ${user.lastname} ajouté à l'évènement ${event.name}`,
+        event: event,
+        message: `${userInformation.firstname} ${userInformation.lastname} ajouté à l'évènement ${event.name}`,
       });
     }
 
