@@ -3,6 +3,7 @@ import Debug from 'debug';
 import passport from 'passport';
 import authDataMapper from '../models/auth.dataMapper.js';
 import isValidEmail from '../services/emailService.js';
+import contactMailer from '../services/mailer/contact.mailer/contact.mailer.js';
 import mailService from '../services/mailer/mailer.js';
 
 const debug = Debug('WeekAway:controller:auth');
@@ -25,15 +26,18 @@ export default {
   login(req, res, next) {
     return passport.authenticate('local', (err, user, info) => {
       if (err) {
+        console.log('err', err);
         return next(err);
       }
 
       if (!user) {
+        console.log('info', info);
         return res.status(401).json({ message: info.message, logged: false });
       }
 
       req.login(user, (error) => {
         if (error) {
+          console.log('err', err);
           return next(error);
         }
 
@@ -55,9 +59,13 @@ export default {
     })(req, res, next);
   },
 
-  logout(req, res) {
-    req.logout();
-    res.clearCookie('jwt').redirect('/login'); // (à changer?)
+  async logout(req, res, next) {
+    return req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({ message: 'Unlog Ok' });
+    });
   },
 
   async register(req, res) {
@@ -110,5 +118,10 @@ export default {
     }
 
     return res.status(500).json({ message: 'Erreur lors de l’envoi du mail.' });
+  },
+
+  async sendMail(req, res) {
+    contactMailer.sendMail(req.body);
+    return res.status(200).json({ message: 'Votre message a bien été envoyé' });
   },
 };
