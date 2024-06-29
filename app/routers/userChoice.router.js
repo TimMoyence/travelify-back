@@ -11,54 +11,54 @@ const debug = Debug('WeekAway:router:userChoice');
 
 const userChoiceRouter = Router();
 
-userChoiceRouter.route('/api/userchoice')
+userChoiceRouter
+  .route('/api/userchoice')
   .post(
-    validation(schemaPost.userChoiceSchema, 'body'),
+    // validation(schemaPost.userChoiceSchema, 'body'),
     controllerWrapper(userChoiceController.addUserChoice),
-
   )
-/**
+  /**
    * POST /api/userchoice/
    * @summary add an userchoice
    * @tags UserChoices
    * @param {UserChoice} request.body.required
    *
    */
-  .get(
-    controllerWrapper(userChoiceController.getAllUsersChoices),
-  );
+  .get(controllerWrapper(userChoiceController.getAllUsersChoices));
 /**
-   * GET /api/userchoice
-   * @summary Get all users choices
-   * @tags UserChoices
+ * GET /api/userchoice
+ * @summary Get all users choices
+ * @tags UserChoices
  */
 
-userChoiceRouter.route('/api/userchoice/event/:id')
+userChoiceRouter
+  .route('/api/userchoice/event/:id')
   .get(
     validation(schemaGet, 'query'),
     controllerWrapper(userChoiceController.getUserChoiceByEventId),
   );
 /**
-   * GET /api/userchoice/event/:id
-   * @summary Get all users choices by event id
-   * @tags UserChoices
+ * GET /api/userchoice/event/:id
+ * @summary Get all users choices by event id
+ * @tags UserChoices
  */
 
-userChoiceRouter.route('/api/userchoice/:id')
+userChoiceRouter
+  .route('/api/userchoice/:id')
   .get(
     validation(schemaGet, 'query'),
     controllerWrapper(userChoiceController.getUserChoiceByUserId),
   )
-/**
+  /**
    * GET /api/userchoice/:id
    * @summary Get user choice by user id
    * @tags UserChoices
- */
+   */
   .patch(
     validation(schemaPatch.userChoiceSchema, 'body'),
     controllerWrapper(userChoiceController.updateUserChoice),
   )
-/**
+  /**
    * PATCH /api/userchoice/:id
    * @summary modify a user choice by user id
    * @tags UserChoices
@@ -71,10 +71,10 @@ userChoiceRouter.route('/api/userchoice/:id')
     controllerWrapper(userChoiceController.deleteChoiceByUserId),
   );
 /**
-   * DELETE /api/userchoice/:id
-   * @summary delete user choice by user id
-   * @tags UserChoices
-   * @param {UserId} request.params.required
+ * DELETE /api/userchoice/:id
+ * @summary delete user choice by user id
+ * @tags UserChoices
+ * @param {UserId} request.params.required
  */
 
 export default userChoiceRouter;
