@@ -52,7 +52,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/event/
 
 ### ? Get event by id
-GET http://localhost:3000/api/event/36
+GET http://localhost:3000/api/event/22
 
 
 ### ? Update Event
@@ -103,12 +103,12 @@ Content-Type: application/json
 }
 
 ### ? Post event passs
-POST http://caca-boudin.fr/api/joinevent/
+POST http://localhost:3000/api/joinevent/
 Content-Type: application/json
 
 {
-  "id": "17",
-  "password": "6yZxD"
+  "user": "16",
+  "password": "motdepasse6"
 }
 
 ######### ! ############################# 
@@ -118,7 +118,7 @@ Content-Type: application/json
 ######### ! ############################# 
 
 ### ? Get User with event
-GET http://localhost:3000/api/user/27/events
+GET http://localhost:3000/api/user/16/events
 
 ### ? Get User With Event and UserChoice
 GET http://localhost:3000/api/user/10/events/choices
@@ -134,12 +134,15 @@ POST http://localhost:3000/api/userchoice
 Content-Type: application/json
 
 {
-  "startDate": "2023-10-027T10:00:00.000Z",
-  "endDate": "2023-12-21T16:00:00.000Z",
-  "eventId": 4,
-  "userId": 1
+  "startDate": "2024-07-16T00:00:00+02:00",
+  "endDate": "2024-07-16T00:00:00+02:00",
+  "eventId": 22,
+  "userId": 16
 }
 
+
+# 0 {start_date_choice: "2024-06-30T00:00:00+02:00", end_date_choice: "2024-06-30T00:00:00+02:00"}
+# 1 {start_date_choice: "2024-07-19T00:00:00+02:00", end_date_choice: "2024-07-19T00:00:00+02:00"}
 ### ? Get UserChoice by id
 GET http://localhost:3000/api/userchoice/1
 
@@ -228,7 +231,7 @@ POST http://localhost:3000/api/userhasevent
 Content-Type: application/json
 
 {
-  "user_id": 1,
-  "event_id": 4
+  "user_id": 16,
+  "event_id": 7
 }
 
