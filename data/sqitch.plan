@@ -5,3 +5,4 @@ createTable 2023-10-24T12:26:38Z Renaud Berni <renau@Renaud-BERNI> # add the new
 CreateFonction 2023-11-02T11:35:51Z Tim <tim.moyence@gmail.com> # CreateFonctionToDelete
 set_timestamp 2023-11-15T09:04:57Z Tim <tim.moyence@gmail.com> # create a Trigger set_timestamp
 seeding 2024-06-29T16:12:28Z Tim <tim.moyence@gmail.com> # add data to user 1. For user unconnected
+sessionTable 2024-07-04T14:41:23Z Tim <tim.moyence@gmail.com> # add session for pg session connect
