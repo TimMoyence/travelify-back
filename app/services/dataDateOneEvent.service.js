@@ -36,11 +36,13 @@ export default {
       const userhasChoice = [];
       for (let j = 0; j < idOfUserChoice[i].length; j += 1) {
         const currentUser = data.users;
-        const user = currentUser.find((element) => element.user_id === idOfUserChoice[i][j]);
+        const user = currentUser.find(
+          (element) => element.user_id === idOfUserChoice[i][j],
+        );
         if (user) {
-          userhasChoice.push({
-            name: `${user.user_information.user_firstname} ${user.user_information.user_lastname}`,
-          });
+          userhasChoice.push(
+            `${user.user_information.user_firstname} ${user.user_information.user_lastname}`,
+          );
         }
       }
       usershasChoices.push(userhasChoice);
