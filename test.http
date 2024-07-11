@@ -52,7 +52,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/event/
 
 ### ? Get event by id
-GET http://localhost:3000/api/event/22
+GET http://localhost:3000/api/event/4
 
 
 ### ? Update Event
@@ -118,7 +118,7 @@ Content-Type: application/json
 ######### ! ############################# 
 
 ### ? Get User with event
-GET http://localhost:3000/api/user/16/events
+GET http://localhost:3000/api/user/3/events
 
 ### ? Get User With Event and UserChoice
 GET http://localhost:3000/api/user/10/events/choices
