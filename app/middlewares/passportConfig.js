@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import Debug from 'debug';
 import jwt from 'jsonwebtoken';
+import { Strategy as JwtStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import UserDataMapper from '../models/user.dataMapper.js';
 import isValidEmail from '../services/emailService.js';
@@ -21,7 +22,9 @@ export default (passport) => {
         const user = await userDataMapper.findByEmail(email);
 
         if (!user) {
-          return done(null, false, { message: 'Email ou mot de passe incorrect.' });
+          return done(null, false, {
+            message: 'Email ou mot de passe incorrect.',
+          });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -48,7 +51,32 @@ export default (passport) => {
       },
     ),
   );
+  // ! To take cookie in the web page work in http but not in the front
+  const cookieExtractor = (req) => {
+    let token = null;
+    if (req && req.cookies) {
+      token = req.cookies.jwt;
+    }
+    return token;
+  };
 
+  const opts = {};
+  opts.jwtFromRequest = cookieExtractor;
+  opts.secretOrKey = process.env.JWT_SECRET;
+
+  passport.use(
+    new JwtStrategy(opts, async (jwtPayload, done) => {
+      try {
+        const user = await userDataMapper.findById(jwtPayload.id);
+        if (user) {
+          return done(null, user);
+        }
+        return done(null, false);
+      } catch (error) {
+        return done(error, false);
+      }
+    }),
+  );
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
