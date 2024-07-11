@@ -1,11 +1,12 @@
 import Debug from 'debug';
 import { Router } from 'express';
-import upload from '../services/multer.js';
+import passport from 'passport';
 import userController from '../controllers/user.controller.js';
-import validation from '../middlewares/validation.middleware.js';
-import * as schemaPatch from '../schemas/app.patch.schema.js';
-import schemaGet from '../schemas/app.get.schema.js';
 import controllerWrapper from '../middlewares/controller.wrapper.js';
+import validation from '../middlewares/validation.middleware.js';
+import schemaGet from '../schemas/app.get.schema.js';
+import * as schemaPatch from '../schemas/app.patch.schema.js';
+import upload from '../services/multer.js';
 
 const debug = Debug('WeekAway:router:user');
 
@@ -13,9 +14,9 @@ const userRouter = Router();
 
 userRouter.get('/api/users', controllerWrapper(userController.getAllUsers));
 /**
-   * GET /api/users
-   * @summary Get all users
-   * @tags User
+ * GET /api/users
+ * @summary Get all users
+ * @tags User
  */
 
 userRouter
@@ -28,7 +29,7 @@ userRouter
    * GET /api/user/:id
    * @summary Get user by id
    * @tags User
- */
+   */
   .patch(
     upload.single('profile'),
     validation(schemaPatch.UserGestionSchema, 'body'),
@@ -58,9 +59,9 @@ userRouter
   .get(controllerWrapper(userController.getUserWithEvents));
 
 /**
-   * GET /api/users/:id/events
-   * @summary Get user by id with his events
-   * @tags User
+ * GET /api/users/:id/events
+ * @summary Get user by id with his events
+ * @tags User
  */
 
 userRouter
@@ -70,9 +71,20 @@ userRouter
     controllerWrapper(userController.getUserWithEventsAndUserChoices),
   );
 /**
-   * GET /api/users/:id/choices
-   * @summary Get user by id with his events and choices
-   * @tags User
+ * GET /api/users/:id/choices
+ * @summary Get user by id with his events and choices
+ * @tags User
  */
+
+userRouter.post(
+  '/api/admin/isAuthenticated',
+
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    debug('isAuthenticated');
+
+    res.json({ authenticated: true, message: 'Authenticated' });
+  },
+);
 
 export default userRouter;
