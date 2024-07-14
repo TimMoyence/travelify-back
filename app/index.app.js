@@ -16,7 +16,7 @@ import router from './routers/index.router.js';
 
 const debug = Debug('WeekAway:app:index');
 const app = express();
-
+const oneMonthInMs = 30 * 24 * 60 * 60 * 1000;
 app.use(cookieParser());
 
 const allowedOrigins = process.env.CORSORIGIN.split(',');
@@ -64,10 +64,10 @@ app.use(
       pool: dbClient.originalClient, // Utilisation du pool importé de client.js
       tableName: 'session', // Nom de la table pour les sessions
     }),
-    secret: 'votre_secret_de_session',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // Durée de vie du cookie
+    cookie: { maxAge: oneMonthInMs }, // Durée de vie du cookie
   }),
 );
 

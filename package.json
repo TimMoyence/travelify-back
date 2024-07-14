@@ -11,7 +11,8 @@
     "Deploy": "psql -d weekaway -U Tim -f ./data/deploy/createTable.sql",
     "Revert": "psql -d weekaway -U Tim -f  ./data/revert/createTable.sql",
     "Verify": "psql -d weekaway -U Tim -f  ./data/verify/createTable.sql",
-    "resetDB": "psql -d weekaway -U Tim -f ./data/revert/createTable.sql; psql -d weekaway -U Tim -f ./data/deploy/createTable.sql;psql -d weekaway -U Tim -f ./data/deploy/CreateFonction.sql; psql -d weekaway -U Tim -f ./data/deploy/set_timestamp.sql; psql -d weekaway -U Tim -f ./data/verify/createTable.sql; psql -d weekaway -U Tim -f data/deploy/seeding.sql; psql -d weekaway -U Tim -f data/deploy/sessionTable.sql"
+    "resetDB": "psql -d weekaway -U Tim -f ./data/revert/createTable.sql; psql -d weekaway -U Tim -f ./data/deploy/createTable.sql;psql -d weekaway -U Tim -f ./data/deploy/CreateFonction.sql; psql -d weekaway -U Tim -f ./data/deploy/set_timestamp.sql; psql -d weekaway -U Tim -f ./data/verify/createTable.sql; psql -d weekaway -U Tim -f data/deploy/seeding.sql; psql -d weekaway -U Tim -f data/deploy/sessionTable.sql",
+    "resetDBinWebsite": "psql -d weekaway -U weekaway_admin -f ./data/revert/createTable.sql; psql -d weekaway -U weekaway_admin -f ./data/deploy/createTable.sql;psql -d weekaway -U weekaway_admin -f ./data/deploy/CreateFonction.sql; psql -d weekaway -U weekaway_admin -f ./data/deploy/set_timestamp.sql; psql -d weekaway -U weekaway_admin -f ./data/verify/createTable.sql; psql -d weekaway -U weekaway_admin -f data/deploy/seeding.sql; psql -d weekaway -U weekaway_admin -f data/deploy/sessionTable.sql"
   },
   "keywords": [],
   "author": "",
