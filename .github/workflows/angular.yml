@@ -16,13 +16,11 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
-      - name: Add SSH key to known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan 212.132.104.125 >> ~/.ssh/known_hosts
-      - name: Deploy
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh -i ~/.ssh/deploy_key root@212.132.104.125 'cd /var/www/travelify-back/ && git pull && npm install && pm2 restart index.js'
+          ssh-keyscan -H 212.132.104.125 >> ~/.ssh/known_hosts
+      - name: Deploy to server
+        run: ssh -i ~/.ssh/deploy_key root@212.132.104.125 'cd /var/www/travelify-back/ && git pull && npm install && pm2 restart index.js'
