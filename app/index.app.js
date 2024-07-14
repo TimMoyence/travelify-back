@@ -66,8 +66,8 @@ app.use(
     }),
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: oneMonthInMs }, // Durée de vie du cookie
+    saveUninitialized: true,
+    cookie: { secure: true, maxAge: oneMonthInMs },
   }),
 );
 
