@@ -83,8 +83,7 @@ export default {
     };
 
     if (!req.file) {
-      userData.profile_picture =
-        'http://87.106.123.203:3000/static/profilDefault.png';
+      userData.profile_picture = 'https://travelify.fr/static/default.webp';
     } else if (req.file) {
       userData.profile_picture = `http://87.106.123.203:3000/static/${req.file.filename}`;
     }

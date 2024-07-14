@@ -86,9 +86,9 @@ export default {
 
     // If someone upload a picture, we add the path to the data
     if (!req.file) {
-      dataEvent.picture = 'http://localhost:3000/static/default.webp';
+      dataEvent.picture = 'https://travelify.fr/static/default.webp';
     } else if (req.file) {
-      dataEvent.picture = `http://localhost:3000/static/${req.file.filename}`;
+      dataEvent.picture = `https://travelify.fr/static/${req.file.filename}`;
     }
 
     const event = await datamapper.createEvent(dataEvent);
