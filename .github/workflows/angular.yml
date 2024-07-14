@@ -19,8 +19,8 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H 212.132.104.125 >> ~/.ssh/known_hosts
       - name: Deploy to server
-        run: ssh -i ~/.ssh/deploy_key root@212.132.104.125 'cd /var/www/travelify-back/ && git pull && npm install && pm2 restart index.js'
+        run: ssh -i ~/.ssh/id_ed25519 root@212.132.104.125 'cd /var/www/travelify-back/ && git pull && npm install && pm2 restart index.js'
