@@ -23,11 +23,4 @@ package-lock.json
 sqitch.conf
 #test
 coverage/
-uploads/*
-!uploads/default.png
-!uploads/EnzoCaldora.jpg
-!uploads/GeoffreyFardeau.jpg
-!uploads/JeremyBreton.jpg
-!uploads/RenaudBerni.jpg
-!uploads/TimMoyence.jpg
 .vscode/
